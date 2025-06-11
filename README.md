@@ -1,6 +1,6 @@
 # 🧠 MINDMASH Quiz, Feedback, & Leaderboard Application
 
-This repository houses the **MINDMASH** web application, an interactive platform developed by The Coders Club. As the Secretary of The Coders Club, Mangayarkarasi College of Engineering, I embarked on this project to explore **VibeCoding** – a new approach to development. This entire application was built collaboratively using **Microsoft Copilot** and **Google Gemini**. Please note that the original website might no longer be available, as we may have updated our live projects.
+This repository houses the **MINDMASH** web application, an interactive platform developed by The Coders Club. As the Secretary of The Coders Club, Mangayarkarasi College of Engineering, I embarked on this project to explore **VibeCoding** – a new approach to development. This entire application was built collaboratively using **Microsoft Copilot** and **Google Gemini**. You can view a live demo of the original website, though please note it might not always reflect the absolute latest updates as we may have updated our live projects.
 
 ---
 
@@ -109,6 +109,13 @@ You can view the data submitted through the quiz and feedback forms directly in 
 
 ---
 
+## 🌐 Live Demo
+
+Experience the **MINDMASH** application live here:
+* **Original Project Website:** [https://thecodersclub-mce.github.io/mindmash/](https://thecodersclub-mce.github.io/mindmash/)
+
+---
+
 ## ☁️ Google Apps Script Backend Code (For Reference)
 
 The backend logic for handling form submissions and integrating with Google Sheets is powered by a Google Apps Script web app. The **single script file included here is common to both the Quiz and Feedback forms**, handling data for both based on the form's setup.
@@ -130,7 +137,7 @@ You can open `index.html`, `feedback.html`, and `leaderboard.html` directly in y
 * `leaderboard.html`: Displays the quiz results with weekly and department-wise filtering.
 * `styles.css`: Contains the common CSS styling for all pages.
 * `TCC.png`, `MCE_tab.png`, `IG.png`, `LINKEDLN.png`, `YT.png`, `WP.svg`: Image assets used throughout the pages.
-* `scripts/google-apps-script-handler.js`: The Google Apps Script code for backend data handling. (Adjust path if you put it directly in root)
+* `google-apps-script-handler.js`: The Google Apps Script code for backend data handling.
 
 ---
 
