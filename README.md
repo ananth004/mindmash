@@ -57,7 +57,7 @@ Both the quiz and feedback forms submit data to a Google Sheet via a deployed Go
 
       sheet.appendRow(rowData);
 
-      return ContentService.createTextOutput(JSON.stringify({"result":"success", "row": sheet.getLastRow()})).setMimeType(ContentService.MimeType.JSON);
+      return ContentService.createTextOutput(JSON.stringify({ "result": "success", "row": nextRow })).setMimeType(ContentService.MimeType.JSON);
     }
     ```
 5.  **Deploy as Web App**:
@@ -109,6 +109,14 @@ You can view the data submitted through the quiz and feedback forms directly in 
 
 ---
 
+## ☁️ Google Apps Script Backend Code (For Reference)
+
+The backend logic for handling form submissions and integrating with Google Sheets is powered by a Google Apps Script web app. The **single script file included here is common to both the Quiz and Feedback forms**, handling data for both based on the form's setup.
+
+* **View Apps Script Code:** [`scripts/google-apps-script-handler.js`]([./scripts/google-apps-script-handler.js](https://github.com/ananth-techie/mindmash/blob/main/google-apps-script-handler.js)) (Adjust path if you put it directly in root)
+
+---
+
 ## 💻 Local Development
 
 You can open `index.html`, `feedback.html`, and `leaderboard.html` directly in your web browser to test them. Remember that for form submissions to work, you *must* have completed the Google Apps Script setup and updated the `scriptUrl` in `index.html` and `feedback.html`.
@@ -122,6 +130,7 @@ You can open `index.html`, `feedback.html`, and `leaderboard.html` directly in y
 * `leaderboard.html`: Displays the quiz results with weekly and department-wise filtering.
 * `styles.css`: Contains the common CSS styling for all pages.
 * `TCC.png`, `MCE_tab.png`, `IG.png`, `LINKEDLN.png`, `YT.png`, `WP.svg`: Image assets used throughout the pages.
+* `scripts/google-apps-script-handler.js`: The Google Apps Script code for backend data handling. (Adjust path if you put it directly in root)
 
 ---
 
