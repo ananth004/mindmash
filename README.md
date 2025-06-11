@@ -113,7 +113,7 @@ You can view the data submitted through the quiz and feedback forms directly in 
 
 The backend logic for handling form submissions and integrating with Google Sheets is powered by a Google Apps Script web app. The **single script file included here is common to both the Quiz and Feedback forms**, handling data for both based on the form's setup.
 
-* **View Apps Script Code:** [`main/google-apps-script-handler.js`](./main/google-apps-script-handler.js)
+* **View Apps Script Code:** [`google-apps-script-handler.js`](mindmash/google-apps-script-handler.js)
 
 ---
 
