@@ -1,5 +1,3 @@
----
-
 # 🧠 MINDMASH Quiz, Feedback, & Leaderboard Application
 
 This repository houses the **MINDMASH** web application, an interactive platform developed by The Coders Club. As the Secretary of The Coders Club, Mangayarkarasi College of Engineering, I embarked on this project to explore **VibeCoding** – a new approach to development. This entire application was built collaboratively using **Microsoft Copilot** and **Google Gemini**. Please note that the original website might no longer be available, as we may have updated our live projects.
