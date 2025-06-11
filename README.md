@@ -100,6 +100,15 @@ The leaderboard data in `leaderboard.html` is currently **static HTML**. This me
 
 ---
 
+## 📊 View Live Data
+
+You can view the data submitted through the quiz and feedback forms directly in these Google Sheets (these are publicly viewable links):
+
+* **MINDMASH - Quiz Data**: [https://docs.google.com/spreadsheets/d/1O4NlEm2V8NRINTL03K8Ff_aZrC7zbEis6Lfcqkx6H1s/edit?gid=0#gid=0](https://docs.google.com/spreadsheets/d/1O4NlEm2V8NRINTL03K8Ff_aZrC7zbEis6Lfcqkx6H1s/edit?gid=0#gid=0)
+* **MINDMASH - Feedback Data**: [https://docs.google.com/spreadsheets/d/1YvdX7s4c6OOS6B-QcMmkf2hZHi2HfGAIn2LuQ5_R0iY/edit?gid=0#gid=0](https://docs.google.com/spreadsheets/d/1YvdX7s4c6OOS6B-QcMmkf2hZHi2HfGAIn2LuQ5_R0iY/edit?gid=0#gid=0)
+
+---
+
 ## 💻 Local Development
 
 You can open `index.html`, `feedback.html`, and `leaderboard.html` directly in your web browser to test them. Remember that for form submissions to work, you *must* have completed the Google Apps Script setup and updated the `scriptUrl` in `index.html` and `feedback.html`.
