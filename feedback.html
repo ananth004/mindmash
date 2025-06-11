@@ -315,7 +315,7 @@
 
         <div class="quiz-form-wrapper">
             <h2>Feedback Form</h2>
-            <form id="feedbackForm" method="POST" action="https://script.google.com/macros/s/AKfycbwYjG5TPLqg9X-91Z3g6-FgRLDhJOAG028wiqIO8_-gXcwgS6TM0oZlJWcazUTqQEZD/exec">
+            <form id="feedbackForm" method="POST" action="https://script.google.com/macros/s/AKfycbzQQ265GgGANkFzQLAY3WQsu_AkUUs936mUQJxoo_8EM1qeDx3Dm1L2EP3AB2natWYzEw/exec">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="Name" required placeholder="Enter your full name">
@@ -412,7 +412,7 @@
     <script>
         // --- CONTROL KEYWORD HERE ---
         // Change this variable to "disable" or "enable"
-        const formControlStatus = "disable"; // Changed variable name to be specific for feedback form
+        const formControlStatus = "enable"; // Changed variable name to be specific for feedback form
         // --- END CONTROL KEYWORD ---
 
         // Object to store original text content for jumbling/unjumbling
@@ -553,7 +553,7 @@
             }
 
             // Replace 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE' with your deployed Apps Script URL for FEEDBACK
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbwYjG5TPLqg9X-91Z3g6-FgRLDhJOAG028wiqIO8_-gXcwgS6TM0oZlJWcazUTqQEZD/exec';
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzQQ265GgGANkFzQLAY3WQsu_AkUUs936mUQJxoo_8EM1qeDx3Dm1L2EP3AB2natWYzEw/exec';
             fetch(scriptUrl, {
                 method: 'POST',
                 mode: 'no-cors', // Important for sending data to Apps Script
