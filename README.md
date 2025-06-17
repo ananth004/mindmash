@@ -2,26 +2,46 @@
 
 -----
 
-# 🧠 C Programming Series Quiz, Feedback, & Leaderboard Application
+# 🧠 MINDMASH Application: C Programming Series, Quizzes, Feedback, & Leaderboard
 
-This repository houses the **C Programming Series** web application, an interactive platform developed by The Coders Club. As the Secretary of The Coders Club, Mangayarkarasi College of Engineering, I embarked on this project to explore **VibeCoding** – a new approach to development. This entire application was built collaboratively using **Microsoft Copilot** and **Google Gemini**. You can view a live demo of the original website, though please note it might not always reflect the absolute latest updates as we may have updated our live projects.
+This repository houses the **MINDMASH** web application, an interactive platform developed by The Coders Club. As the Secretary of The Coders Club, Mangayarkarasi College of Engineering, I embarked on this project to explore **VibeCoding** – a new approach to development. This entire application was built collaboratively using **Microsoft Copilot** and **Google Gemini**. You can view a live demo of the original website, though please note it might not always reflect the absolute latest updates as we may have updated our live projects.
 
 -----
 
 ## ✨ Features
 
-  * **Interactive Quiz Form**: Allows users to answer multiple-choice, multi-select, and open-ended questions.
-  * **Feedback Form**: Gathers valuable insights from users with various input types.
-  * **Dynamic Form Control**: Both quiz and feedback forms can be set to `enable` or `disable` using a simple JavaScript variable for active control.
-  * **"Quiz Closed" Experience**: When disabled, the quiz section's questions are **jumbled and blurred**, and input fields are inaccessible, providing clear visual feedback that it's currently unavailable.
-  * **Submission Success Animation**: A pleasant tick mark animation appears upon successful form submission.
+  * **C Programming Series Content (Homepage)**:
+
+      * **Structured Weekly Content**: Navigate through C programming content organized by weeks.
+      * **Daily Learning Modules**: Each week breaks down into daily sections (Monday, Tuesday, etc.), offering focused learning.
+      * **Dynamic Content Access**: Weeks and individual days can be configured to display content as **blurred and jumbled text** if they are disabled (e.g., "Coming Soon" or "Access Closed"). This provides a clear visual cue while allowing users to still click the navigation buttons.
+      * **Responsive Tab Navigation**: Week and day selection buttons are fully responsive, gracefully adapting to different screen sizes and maintaining a consistent, sleek appearance on both desktop and mobile devices.
+      * **Code Snippets & Examples**: Content includes clearly formatted code blocks for hands-on learning.
+
+  * **Interactive Quiz Form (Integrated into Homepage)**:
+
+      * Allows users to answer multiple-choice, multi-select, and open-ended questions.
+      * Can be **enabled or disabled** via a simple JavaScript variable for active control.
+      * **"Quiz Closed" Experience**: When disabled, the quiz section's questions are **jumbled and blurred**, and input fields are inaccessible, providing clear visual feedback that it's currently unavailable.
+      * **Anti-Copying Measures**: Basic CSS to prevent text selection in certain quiz elements when disabled.
+
+  * **Feedback Form (`feedback.html`)**:
+
+      * Gathers valuable insights from users with various input types.
+      * Can also be **enabled or disabled** for active control.
+
+  * **Submission Success Animation**: A pleasant tick mark animation appears upon successful form submission for both quiz and feedback.
+
   * **Google Sheets Integration**: Submits quiz and feedback form data directly to Google Sheets using a Google Apps Script web app (requires user setup).
-  * **Dynamic Leaderboard Display**:
+
+  * **Dynamic Leaderboard Display (`leaderboard.html`)**:
+
       * **Weekly Tabs**: View quiz results categorized by different weeks.
       * **Department-wise Filtering**: Within each week, results can be filtered by specific departments (e.g., CSE 2nd Year, CSE (AI/ML) 2nd Year, CSE 3rd Year).
       * Clearly shows S.No., Name, and Score.
-  * **Responsive Design**: Adapts to different screen sizes for optimal viewing on desktop and mobile devices.
-  * **Anti-Copying Measures**: Basic CSS to prevent text selection in certain quiz elements when disabled.
+      * Highlights **disqualified rows** for easy identification.
+
+  * **Responsive Design**: Adapts to different screen sizes for optimal viewing on desktop and mobile devices across all pages.
 
 -----
 
@@ -88,12 +108,17 @@ Both the quiz and feedback forms submit data to a Google Sheet via a deployed Go
       * Replace the placeholder URL with the **Web app URL** you copied from your Google Apps Script deployment for the Quiz form's Google Sheet.
       * Do the **same for `feedback.html`**, replacing its `scriptUrl` with the **Web app URL** for the Feedback form's Google Sheet.
 
-### 3\. Dynamic Form Status Control
+### 3\. Dynamic Form & Content Status Control
 
-  * **For the Quiz form (`index.html`)**:
+  * **For the Interactive Quiz (`index.html`)**:
       * Open `index.html`.
       * Find the line: `const linkControlStatus = "disable";`
       * Change `"disable"` to `"enable"` to make the quiz form active.
+  * **For the C Programming Series Content (`index.html`)**:
+      * Open `index.html`.
+      * Locate the JavaScript section that defines `disabledWeekId` and `disabledDays`.
+      * Adjust `let disabledWeekId = '';` to specify a week ID (e.g., `'week4'`) to display an entire week's content as blurred and jumbled.
+      * Modify `const disabledDays = {};` to include specific days within an enabled week (e.g., `{'week1': ['tuesday', 'thursday']}`) to show those day's content as blurred and jumbled.
   * **For the Feedback form (`feedback.html`)**:
       * Open `feedback.html`.
       * Find the line: `const formControlStatus = "disable";`
@@ -103,7 +128,7 @@ Both the quiz and feedback forms submit data to a Google Sheet via a deployed Go
 
 The leaderboard data in `leaderboard.html` is currently **static HTML**. This means that to update the quiz scores, you will need to manually edit the `leaderboard.html` file.
 
-  * To update scores for Week 1, find the `<div id="week1" ...>` section.
+  * To update scores for a specific week, find the `<div id="week1" ...>` section.
   * Within that, locate the specific department's `div` (e.g., `<div id="cse2_week1" ...>`).
   * Edit the `<table>` rows (`<tr><td>...</td></tr>`) to reflect the latest rankings and scores.
   * Follow the same process for other weeks and departments as needed.
@@ -114,14 +139,14 @@ The leaderboard data in `leaderboard.html` is currently **static HTML**. This me
 
 You can view the data submitted through the quiz and feedback forms directly in these Google Sheets (these are publicly viewable links):
 
-  * **C Programming Series - Quiz Data**: [https://docs.google.com/spreadsheets/d/1O4NlEm2V8NRINTL03K8Ff\_aZrC7zbEis6Lfcqkx6H1s/edit?gid=0\#gid=0](https://docs.google.com/spreadsheets/d/1O4NlEm2V8NRINTL03K8Ff_aZrC7zbEis6Lfcqkx6H1s/edit?gid=0#gid=0)
-  * **C Programming Series - Feedback Data**: [https://docs.google.com/spreadsheets/d/1YvdX7s4c6OOS6B-QcMmkf2hZHi2HfGAIn2LuQ5\_R0iY/edit?gid=0\#gid=0](https://docs.google.com/spreadsheets/d/1YvdX7s4c6OOS6B-QcMmkf2hZHi2HfGAIn2LuQ5_R0iY/edit?gid=0#gid=0)
+  * **MINDMASH - Quiz Data**: [https://docs.google.com/spreadsheets/d/1O4NlEm2V8NRINTL03K8Ff\_aZrC7zbEis6Lfcqkx6H1s/edit?gid=0\#gid=0](https://docs.google.com/spreadsheets/d/1O4NlEm2V8NRINTL03K8Ff_aZrC7zbEis6Lfcqkx6H1s/edit?gid=0#gid=0)
+  * **MINDMASH - Feedback Data**: [https://docs.google.com/spreadsheets/d/1YvdX7s4c6OOS6B-QcMmkf2hZHi2HfGAIn2LuQ5\_R0iY/edit?gid=0\#gid=0](https://docs.google.com/spreadsheets/d/1YvdX7s4c6OOS6B-QcMmkf2hZHi2HfGAIn2LuQ5_R0iY/edit?gid=0#gid=0)
 
 -----
 
 ## 🌐 Live Demo
 
-Experience the **C Programming Series** application live here:
+Experience the **MINDMASH** application live here:
 
   * **Original Project Website:** [https://thecodersclub-mce.github.io/mindmash/](https://thecodersclub-mce.github.io/c-programming-series)
 
@@ -137,13 +162,13 @@ The backend logic for handling form submissions and integrating with Google Shee
 
 ## 💻 Local Development
 
-You can open `index.html`, `feedback.html`, and `leaderboard.html` directly in your web browser to test them. Remember that for form submissions to work, you *must* have completed the Google Apps Script setup and updated the `scriptUrl` in `index.html` and `feedback.html`.
+You can open `index.html`, `feedback.html`, and `leaderboard.html` directly in your web browser to test them. Remember that for form submissions and dynamic content display to work, you *must* have completed the Google Apps Script setup and updated the relevant JavaScript variables in the HTML files.
 
 -----
 
 ## 📄 File Structure
 
-  * `index.html`: The main Quiz application page.
+  * `index.html`: The **main application page**, featuring both the C Programming Series weekly/daily content and the interactive Quiz form.
   * `feedback.html`: The Feedback form page.
   * `leaderboard.html`: Displays the quiz results with weekly and department-wise filtering.
   * `styles.css`: Contains the common CSS styling for all pages.
