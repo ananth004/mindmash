@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming Series - The Coders Club</title>
+    <link rel="icon" href="TCC.png" type="image/png">
+    <link rel="stylesheet" href="styles.css"> 
+    <style>
+       /* General Container for all content */
+.content-container-wrapper {
+    width: 90%;
+    max-width: 900px; /* Increased max-width for better content display */
+    margin: 20px auto; /* General top/bottom margin */
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px; /* Space before footer */
+}
+
+/* Main Tab Navigation (Week 1, Week 2, etc.) */
+.main-tab-nav {
+    display: flex;
+    justify-content: center;
+    background: #E0E0E0;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 5px;
+    box-shadow: inset 0px 2px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* Added for responsiveness: allows buttons to wrap */
+}
+
+/* Nested Tab Navigation (Monday, Tuesday, etc.) */
+.nested-tab-nav {
+    display: flex;
+    justify-content: center;
+    background: #e3f2fd; /* Lighter blue background for nested tabs */
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 5px;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 15px; /* Space above nested tabs */
+    margin-bottom: 15px; /* Space below nested tabs */
+    flex-wrap: wrap; /* Added for responsiveness: allows buttons to wrap */
+}
+
+/* General Tab Button Styling */
+.tab-button {
+    flex: 1; /* Allows buttons to grow and shrink */
+    min-width: 80px; /* Minimum width to prevent squishing */
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(to right, #F5F5F5, #E0E0E0);
+    color: #333;
+    font-size: 14px;
+    border-radius: 6px; /* Uniform rounded corners */
+    transition: 0.3s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 2px; /* Adjusted margin for consistent spacing when wrapping */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.tab-button:hover {
+    background: #1E88E5;
+    color: white;
+}
+
+.tab-button.active {
+    background: #00408f;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling for disabled buttons */
+.tab-button.disabled {
+    background: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.tab-button.disabled:hover {
+    background: #cccccc;
+    color: #666666;
+}
+
+/* Content sections */
+.week-content, .day-content {
+    display: none; /* Hidden by default */
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: left; /* Ensure text alignment is natural */
+}
+
+.active-content {
+    display: block; /* Shown when active */
+}
+
+/* Styling for daily content sections within weeks */
+.day-section {
+    margin-top: 20px; /* Space between the daily tabs and content */
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.day-section h2 {
+    color: #00408f;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+}
+
+.content-block {
+    margin-bottom: 20px;
+    /* Ensure no extra padding/margin on the content block itself
+        that might throw off the alignment for its children */
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Headings within content block - ensure they have no left margin/padding */
+.content-block h3,
+.content-block h4 {
+    color: #1E88E5;
+    /* Adjust margin-bottom to control space before the list */
+    margin-bottom: 3px; /* Reduced for tighter spacing */
+    margin-left: 0; /* Crucial: Align heading text to the very left of .content-block */
+    padding-left: 0; /* Crucial: Align heading text to the very left of .content-block */
+    text-align: left; /* Ensure text is left-aligned */
+}
+
+.content-block p {
+    margin-bottom: 10px;
+    line-height: 1.6; /* Improved readability for text */
+}
+
+/* ---------------------------------------------------- */
+/* Unordered Lists (UL) - Circle Bullets */
+/* ---------------------------------------------------- */
+.content-block ul {
+    list-style: none; /* Remove default bullets */
+    margin-left: 0; /* Align the list's left edge with the heading */
+    padding-left: 0; /* Remove browser's default padding */
+    margin-top: 0; /* Pull list closer to the heading */
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.content-block ul li {
+    margin-bottom: 5px;
+    position: relative; /* Needed for ::before positioning */
+    line-height: 1.6; /* Ensure consistent line spacing */
+    
+    /* Padding to create space for the circle bullet and gap */
+    padding-left: 18px; /* Space for the circle bullet + small gap */
+}
+
+/* Custom Circle Bullet using ::before pseudo-element for UL */
+.content-block ul li::before {
+    content: "•"; /* Unicode character for a solid circle */
+    color: #00408f; /* Matching blue */
+    font-weight: bold; /* Make it more prominent */
+    font-size: 1em; /* Ensure the bullet size matches the text */
+    
+    position: absolute; /* Position the bullet absolutely relative to the list item */
+    left: 0; /* Align it to the very left edge of the LI's content area */
+    top: 0; /* Align with the top of the text */
+    margin-right: 8px; /* Space between the bullet and the start of the list item text */
+}
+
+/* ---------------------------------------------------- */
+/* Ordered Lists (OL) - Numbered Bullets */
+/* ---------------------------------------------------- */
+.content-block ol {
+    list-style: none; /* Crucial: Remove default numbers to use custom counters */
+    margin-left: 0; /* Align the list's left edge with the heading */
+    padding-left: 0; /* Remove browser's default padding */
+    margin-top: 0; /* Pull list closer to the heading */
+    margin-bottom: 10px;
+    text-align: left;
+
+    /* Initialize the counter for ordered lists */
+    counter-reset: custom-numbered-list;
+}
+
+.content-block ol li {
+    margin-bottom: 5px;
+    line-height: 1.6; /* Ensure consistent line spacing */
+    position: relative; /* Needed for positioning the ::before pseudo-element */
+    
+    /* Padding to create space for the number (e.g., "10.") and gap.
+        Adjust this based on the max number of items you expect (e.g., if you go to 100, you need more space). */
+    padding-left: 30px; /* Space for the number and text content */
+}
+
+/* Custom Numbered Bullet using ::before pseudo-element for OL */
+.content-block ol li::before {
+    /* Increment the counter for each list item */
+    counter-increment: custom-numbered-list;
+    /* Display the counter value followed by a period */
+    content: counter(custom-numbered-list) ".";
+    
+    color: #00408f; /* Matching blue */
+    font-weight: bold;
+    font-size: 1em; /* Ensure the number size matches the text */
+    
+    position: absolute; /* Position the number absolutely relative to the list item */
+    left: 0; /* Align it to the very left edge of the LI's content area */
+    top: 0; /* Align with the top of the text */
+    text-align: right; /* Right-align the number within its allotted width */
+    width: 25px; /* Fixed width for numbers (e.g., "1." and "10." align right within this width) */
+    margin-right: 5px; /* Space between the number and the start of the list item text */
+}
+
+code {
+    display: block;
+    background-color: #e6f7ff;
+    color: #333;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.95em;
+    white-space: pre-wrap; /* Ensures line breaks are respected */
+    word-wrap: break-word; /* Breaks long words if necessary */
+}
+
+pre code {
+    padding: 0;
+    background: none;
+    color: inherit;
+    font-size: 1em;
+    white-space: pre;
+}
+
+.example-label {
+    font-weight: bold;
+    color: #00408f;
+    margin-top: 15px;
+    display: block;
+}
+
+/* Add this to your existing CSS file or style block */
+
+.week-content.content-disabled-overlay,
+.day-content.content-disabled-overlay {
+    position: relative;
+    filter: blur(10px); /* Increased blur amount from 5px to 10px */
+    pointer-events: none; /* Disables all mouse events on the blurred content */
+    user-select: none; /* Prevents text selection */
+    opacity: 0.6; /* Optional: Make it slightly faded */
+}
+
+/* Optional: Add an actual overlay on top if you want a more distinct disabled look */
+.week-content.content-disabled-overlay::before,
+.day-content.content-disabled-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent white overlay */
+    z-index: 1; /* Make sure it's above the blurred content */
+}
+/* --- Mobile Responsiveness for Content and Buttons --- */
+
+/* Small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .content-container-wrapper {
+        width: 95%; /* Slightly more width on small screens */
+        padding: 10px;
+        margin: 10px auto 15px auto;
+    }
+
+    /* For both main and nested tab navigation */
+    .main-tab-nav,
+    .nested-tab-nav {
+        flex-direction: row; /* Ensure horizontal flow */
+        justify-content: center;
+        flex-wrap: nowrap; /* PREVENT WRAPPING for buttons */
+        padding: 5px;
+    }
+
+    /* General Tab Button Styling for Mobile */
+    .tab-button {
+        flex: 1 1 auto; /* Allows buttons to grow and shrink */
+        min-width: 0; /* Allow them to shrink as much as needed */
+        margin: 2px; /* Small margin for consistent spacing */
+        font-size: 11px; /* Base font size for mobile */
+        padding: 6px 4px; /* Reduced horizontal padding to save space */
+        white-space: nowrap; /* Prevent text wrapping inside buttons */
+        overflow: hidden; /* Hide overflowing text if it gets too small */
+        text-overflow: ellipsis; /* Add ellipsis for hidden text */
+    }
+
+    /* --- Specific Adjustments for Week Buttons --- */
+    .main-tab-nav .tab-button {
+        /*
+         * To keep all 5 'Week' buttons on a single row,
+         * we set a flex-basis that ensures they take roughly 1/5th of the space.
+         * The `min-width: 0` above allows extreme shrinking if necessary.
+         */
+        flex: 1 1 18%; /* Target ~18% width per button (20% - margins) */
+        font-size: 10px; /* Potentially smaller font for weeks to fit 5 */
+        padding: 6px 2px; /* Even tighter padding for weeks */
+    }
+
+    /* --- Specific Adjustments for Weekday Buttons --- */
+    .nested-tab-nav .tab-button {
+        /*
+         * To keep all 5 'Day' buttons on a single row,
+         * similar to weeks, allow them to take roughly 1/5th of the space.
+         * `min-width: 0` is crucial here.
+         */
+        flex: 1 1 18%; /* Target ~18% width per button (20% - margins) */
+        font-size: 10px; /* Smallest font size for weekdays to fit 5 */
+        padding: 6px 2px; /* Tighter padding for weekdays */
+    }
+
+    /* Content and other elements responsiveness (no change needed here for this specific request) */
+    .day-section {
+        padding: 15px;
+    }
+
+    .day-section h2 {
+        font-size: 1.4em;
+    }
+
+    .content-block h3,
+    .content-block h4 {
+        font-size: 1.1em;
+        margin-bottom: 2px;
+    }
+
+    .content-block p,
+    .content-block ul li,
+    .content-block ol li {
+        font-size: 0.9em;
+    }
+
+    .content-block ul li {
+        padding-left: 15px;
+    }
+    .content-block ul li::before {
+        margin-right: 4px;
+        font-size: 0.9em;
+    }
+
+    .content-block ol li {
+        padding-left: 25px;
+    }
+    .content-block ol li::before {
+        width: 20px;
+        margin-right: 3px;
+        font-size: 0.9em;
+    }
+
+    code {
+        font-size: 0.8em;
+        padding: 8px;
+    }
+}
+/* Medium devices (tablets, 601px to 900px) */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+    .content-container-wrapper {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .tab-button {
+        font-size: 13px;
+        padding: 7px 10px;
+        min-width: 90px; /* Slightly larger min-width for tablets */
+    }
+
+    .day-section {
+        padding: 20px;
+    }
+
+    .day-section h2 {
+        font-size: 1.6em;
+    }
+
+    .content-block h3 {
+        font-size: 1.3em;
+    }
+
+    code {
+        font-size: 0.9em;
+        padding: 12px;
+    }
+}
+
+/* Large devices (desktops, 901px and up - uses existing styles for max-width 900px and up) */
+/* No specific media query needed here as base styles handle larger screens */
+    </style>
+</head>
+<body>
+
+    <div class="blue-container">
+        <div class="left-aligned">
+            <a href="https://mce-madurai.ac.in/" target="_blank">
+                <img src="MCE_tab.png" alt="Logo" class="favicon-logo">
+            </a>
+            <div class="titles">
+                <h1 class="college-name">Mangayarkarasi College of Engineering</h1>
+                <h2 class="site-title">The Coders Club</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-container" style="text-align: right; padding: 15px;">
+        <button class="nav-button" onclick="window.location.href='quiz.html';">Quiz</button>
+        <button class="nav-button" onclick="window.location.href='leaderboard.html';">Leaderboard</button>
+        <button class="nav-button" onclick="window.location.href='feedback.html';">Feedback</button>
+    </div>
+
+    <div class="content-container-wrapper">
+        <div class="main-tab-nav">
+            <button class="tab-button" onclick="showWeek('week1', this)">Week 1</button>
+            <button class="tab-button" onclick="showWeek('week2', this)">Week 2</button>
+            <button class="tab-button" onclick="showWeek('week3', this)">Week 3</button>
+            <button class="tab-button" onclick="showWeek('week4', this)">Week 4</button>
+            <button class="tab-button" onclick="showWeek('week5', this)">Week 5</button>
+        </div>
+
+        <div id="week1" class="week-content">
+            <p style="text-align: left; font-weight: bold; font-size: 18px; margin-bottom: 10px; color: #00408f;">
+                Content for Week 1
+            </p>
+            <div class="nested-tab-nav">
+                <button class="tab-button" onclick="showDay('monday-content-week1', this, 'week1')">Monday</button>
+                <button class="tab-button" onclick="showDay('tuesday-content-week1', this, 'week1')">Tuesday</button>
+                <button class="tab-button" onclick="showDay('wednesday-content-week1', this, 'week1')">Wednesday</button>
+                <button class="tab-button" onclick="showDay('thursday-content-week1', this, 'week1')">Thursday</button>
+                <button class="tab-button" onclick="showDay('friday-content-week1', this, 'week1')">Friday</button>
+            </div>
+
+            <div id="monday-content-week1" class="day-content day-section">
+                <h2>Monday Maverick</h2>
+                <div class="content-block">
+                    <h3>What Are Header Files?</h3>
+                    <ul>
+                        <li>They contain function declarations, macros, constants, and data type definitions.</li>
+                        <li>Included in source files using the #include directive to share code across multiple files.</li>
+                        <li>Facilitate modularity, code reuse, and separation of interface from implementation.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="tuesday-content-week1" class="day-content day-section">
+                <h2>Techie Tuesday</h2>
+                <div class="content-block">
+                    <h3>Variables</h3>
+                    <p>Variables are named locations in memory that are used to hold a value that may be modified by the program.</p>
+                    <p>The syntax for declaring a variable is:</p>
+                    <pre><code>Data_type variableName;</code></pre>
+                    <p>Valid Examples:</p>
+                    <pre><code>
+int age = 21;
+float salary = 4564.50;
+int marks;
+int acc_type;
+char ch = 'y';
+char name[20] = "apollo";
+                    </code></pre>
+                    <p>Invalid Examples:</p>
+                    <pre><code>
+int 5marks;
+int @host;
+int acc no$;
+                    </code></pre>
+                    <h3>Rules for framing a variable</h3>
+                    <ul>
+                        <li>The first character in the variable name must be an alphabet.</li>
+                        <li>Alphabets can be followed by a number of digits or underscores _.</li>
+                        <li>No commas or blank spaces are allowed within a variable name.</li>
+                        <li>No special characters other than underscore (_) can be used in a variable name.</li>
+                        <li>The variable name should not be a keyword.</li>
+                        <li>Variable names are case sensitive.</li>
+                        <li>It should not be of length more than 31 characters.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="wednesday-content-week1" class="day-content day-section">
+                <h2>Syntax Snapshots Wednesday</h2>
+                <div class="content-block">
+                    <h3>Basic Syntax of a C Program</h3>
+                    <pre><code>
+#include &lt;stdio.h&gt;  // Preprocessor directive
+
+// main function - entry point of the program
+int main() {
+    // Print output to the screen
+    printf("Hello, World!\\n");
+
+    return 0;  // Exit the program
+}
+                    </code></pre>
+                    <h3>Explanation of Each Part</h3>
+                    <ol>
+                        <li>Every C program must have a main() function.</li>
+                        <li>Statements must end with a semicolon ;</li>
+                        <li>C is case-sensitive.</li>
+                        <li>Code is typically written in .c files and compiled using tools like gcc.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div id="thursday-content-week1" class="day-content day-section">
+                <h2>Te Ta Thursday</h2>
+                <div class="content-block">
+                    <pre><code>
+#include &lt;stdio.h&gt;
+#define ADD(a, b) ((a) + (b))
+int main() { printf("%d\\n", ADD(5, 7)); return 0; }
+                    </code></pre>
+<h3>Output</h3>
+<code>
+12</code>  <h3>Explanation</h3>
+                    <ol>
+                        <li>#define ADD(a, b) ((a) + (b))
+                        This line defines a macro named ADD that takes two arguments, a and b. The macro expands to the expression ((a) + (b)), which calculates the sum of a and b.
+                        The parentheses around a and b are used to ensure that the macro works correctly even if the arguments are expressions themselves.<br>
+                        </li>
+                        <li>printf("%d\n", ADD(5, 7));
+                        Here, the ADD macro is used to calculate the sum of 5 and 7. The macro expands to ((5) + (7)), which evaluates to 12. The result is then passed to printf(), which prints the value to the console.</li>
+                    </ol>
+                    <h3>How it works</h3>
+                    <ol>
+                        <li>The preprocessor expands the ADD macro to ((5) + (7))</li>
+                        <li>The compiler evaluates the expression ((5) + (7)) to 12.</li>
+                        <li>The printf() function prints the result, 12, to the console.</li>
+                    </ol>
+                    <p>
+                        Using macros like ADD can be useful for simple calculations, but be cautious when using complex macros, as they can lead to unexpected behavior.
+                    </p>
+                </div>
+            </div>
+
+            <div id="friday-content-week1" class="day-content day-section">
+                <h2>Function Friday</h2>
+                <div class="content-block">
+                    <h3>Functions:</h3>
+                    <p>
+                        Functions are blocks of code designed to perform specific tasks. They enhance modularity, code reuse, and readability.
+                    </p>
+                    <h3>Types of Functions</h3>
+                    <ol>
+                        <li>Library Functions: Predefined in header files (printf(),scanf(),strlen(), etc.).</li>
+                        <li>User-Defined Functions: Created by the programmer for specific tasks.</li>
+                        <li>Recursive Functions: Functions that call themselves.</li>
+                    </ol>
+                    <h3>Basic Function Syntax</h3>
+                    <pre><code>
+#include &lt;stdio.h&gt;
+// Function declaration
+int add(int a, int b);
+int main() {
+    int result = add(5, 7);
+    printf("Sum: %d\\n", result);
+    return 0;
+}
+// Function definition
+int add(int a, int b) {
+    return a + b;
+}
+                    </code></pre>
+                    <h3>Function Components Explained</h3>
+                    <ul>
+                        <li>Function Declaration: Specifies return type, function name, and parameters.</li>
+                        <li>Function Definition: Contains the actual implementation.</li>
+                        <li>Function Call: Invokes the function with arguments.</li>
+                    </ul>
+                    <h3>Function Advantages</h3>
+                    <ul>
+                        <li>Encourages code reusability.</li>
+                        <li>Breaks problems into smaller manageable chunks.</li>
+                        <li>Improves readability and maintainability.</li>
+                    </ul>
+                    <h3>Fun Fact</h3>
+                    <p>In C, functions must be declared before they are used, unless included in header files.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="week2" class="week-content">
+            <p style="text-align: left; font-weight: bold; font-size: 18px; margin-bottom: 10px; color: #00408f;">
+                Content for Week 2
+            </p>
+            <div class="nested-tab-nav">
+                <button class="tab-button" onclick="showDay('monday-content-week2', this, 'week2')">Monday</button>
+                <button class="tab-button" onclick="showDay('tuesday-content-week2', this, 'week2')">Tuesday</button>
+                <button class="tab-button" onclick="showDay('wednesday-content-week2', this, 'week2')">Wednesday</button>
+                <button class="tab-button" onclick="showDay('thursday-content-week2', this, 'week2')">Thursday</button>
+                <button class="tab-button" onclick="showDay('friday-content-week2', this, 'week2')">Friday</button>
+            </div>
+
+            <div id="monday-content-week2" class="day-content day-section">
+                <h2>Monday Maverick</h2>
+                <div class="content-block">
+                    <h3>Introduction to Control Structures</h3>
+                    <p>Control structures allow you to change the flow of program execution based on conditions.</p>
+                </div>
+
+                <div class="content-block"> 
+                    <h3>Types</h3>
+                    <ul>
+                        <li>Decision-making (conditional).</li>
+                        <li>Looping (iterative).</li> 
+                        <li>Jumping (branching).</li> 
+                    </ul>
+                </div>
+
+                <div class="content-block"> 
+                    <h3>Explanation</h3>
+                    <ul>
+                        <li>Decision-Making Structures: Used to execute a block of code only if a condition is true.</li>
+                        <li>Looping Structures: Used to repeat a block of code multiple times.</li> 
+                        <li>Jumping Statements: Used to alter the normal flow of a program.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="tuesday-content-week2" class="day-content day-section">
+    <h2>Techie Tuesday</h2>
+    <div class="content-block">
+        <h3>Conditional Statements in C</h3>
+        <p>Conditional statements are used to make decisions in a program. Based on whether a condition is true or false, different blocks of code will be executed.</p>
+
+        <h3>Types</h3> 
+        <ol>
+            <li>if Statement</li>
+            <li>if...else Statement</li>
+            <li>else if Ladder</li>
+            <li>switch Statement</li>
+        </ol>
+
+    </div>
+    
+    <div class="content-block">
+        <h3>Detailed Explanation of Types</h3> <ol>
+            <li>
+                <h4>if Statement:</h4> <p>Used when you want to execute a block of code only if a condition is true.</p>
+                <h5>Syntax</h5> <pre><code>
+if (condition) {
+    //code to execute if condition is true
+}
+                </code></pre>
+            </li>
+            <li>
+                <h4>if...else Statement:</h4> <p>Used when you want to choose between two blocks of code.</p>
+                <h5>Syntax</h5>
+                <pre><code>
+if (condition) {
+    //code to execute if condition is true
+}
+else {
+    //code if false
+}
+                </code></pre>
+            </li>
+            <li>
+                <h4>else if Ladder:</h4> <p>Used when you have multiple conditions to check in sequence.</p>
+                <h5>Syntax</h5>
+                <pre><code>
+if (condition) {
+    //code to execute if condition is true
+}
+else if (condition) {
+    //code
+}
+else if (condition n) {
+    //code
+}
+else {
+    //default code
+}
+                </code></pre>
+            </li>
+            <li>
+                <h4>switch Statement:</h4> <p>Used to replace multiple else if blocks when comparing a single variable against many values.</p>
+                <h5>Syntax</h5>
+                <pre><code>
+switch (expression) {
+case value1:
+    //code
+    break;
+case value2:
+    //code
+    break;
+default:
+    //code
+    break;
+}
+                </code></pre>
+            </li>
+        </ol>
+    </div>
+</div>
+
+            <div id="wednesday-content-week2" class="day-content day-section">
+                <h2>Syntax Snapshots Wednesday</h2>
+                <div class="content-block">
+                    <h3>Syntax of if Statement in C</h3>
+                    <pre><code>
+if (condition) {
+    //Code to execute if condition is true
+}
+                    </code></pre>
+                    <h3>Example C program using if</h3>
+                     <pre><code>
+#include &lt;stdio.h&gt;
+int main() {
+    int number;
+    printf("Enter a number: ");
+    scanf("%d"<&number);
+
+//if condition checks if the number is positive
+if (number > 0 ) {
+printf("The number is positive.\n");
+}
+return 0;
+}                 </code></pre>
+                  <h3>Output</h3>
+                  <code>
+Enter a number:
+8
+The number is positive.
+            </code>
+            </div>
+            </div>
+
+ <div id="thursday-content-week2" class="day-content day-section">
+                <h2>Te Ta Thursday</h2>
+                <div class="content-block">
+                    <ol>
+                        <li><h4>Switch Statement with Enumerations</h4>
+                        Using switch statements with enumerations to handle different cases.
+                        </li>
+                        <pre><code>
+typedef enum {
+ RED,
+ GREEN,
+BLUE
+} Color;
+
+void printColor(Color c) {
+ switch(c){
+  case RED:
+    printf("Red\n");
+    break;
+  //..
+}
+}                </code></pre>
+                  <h3>Expected Output</h3>
+                  <code>
+Red
+            </code>
+
+<li><h4>Nested Loops with Labels</h4>
+                        Using labels to control nested loopexecution.
+                        </li>
+                        <pre><code>
+outer:
+for(int i = 0; i < 5; i++) {
+  for(int j = 0; j < 5; j++) {  
+     if (i == 3) break outer;
+     printf("%d %d\n",i,j);
+}
+}
+           </code></pre>
+                  <h3>Expected Output</h3>
+                  <code>
+0 0
+0 1
+0 2
+0 3
+0 4
+1 0
+1 1
+1 2
+1 3
+1 4
+2 0
+2 1
+2 2
+2 3
+2 4
+            </code>
+
+<li><h4>Break and Continue Statements</h4>
+                        Controlling loop execution with break and continue.
+                        </li>
+                        <pre><code>
+for ( int i = 0; i < 5; i++) {
+ if (i == 3) 
+  continue; //Skips 3
+ if (i == 4)
+  break; //Stop at 4
+ printf("%d\n",i);
+}
+           </code></pre>
+                  <h3>Expected Output</h3>
+                  <code>
+0
+1
+2
+            </code>
+<li><h4>if-else Statements with Conditional Operators</h4>
+                        Simplifying if-else with conditional operators.
+                        </li>
+                        <pre><code>
+int x=5;
+int result = (x>10) ? 1 : 0; //result = 0
+printf("%d\n",result);
+           </code></pre>
+                  <h3>Expected Output</h3>
+                  <code>
+0
+            </code>
+                    </ol>
+                </div>
+            </div>
+
+            <div id="friday-content-week2" class="day-content day-section">
+                <h2>Function Friday</h2>
+                <div class="content-block">
+                    <h3>do...while Loop</h3>
+                    <p>
+                        Executes a block of code at least once, and then continues to repeat the block as long as a specified condition remains true.
+                    </p>
+                    <h4>Syntax</h4>
+                    <pre><code>
+do {
+  // Code to execute
+} while (condition);
+                    </code></pre>
+                    <h3>Example</h3>
+<pre><code>
+#include &lt;stdio.h&gt;
+int main() {
+int x = 5;
+do {
+  printf("Value: "%d\n"),x);
+  x--;
+} while (x > 0);    
+return 0;
+}                </code></pre>
+<h3>Output</h3>
+<code>
+Value: 5
+Value: 4
+Value: 3
+Value: 2
+Value: 1
+            </code>
+<h3>Simulating for-each Loop in C</h3>
+                    <p>
+                        C doesn'thave a direct for-each, but arrays can be traversed using a for loop.
+                    </p>
+                    </code></pre>
+                    <h3>Example</h3>
+<pre><code>
+#include &lt;stdio.h&gt;
+int main() {
+int numbers[] = {10, 20, 30, 40};
+int size = sizeof(numbers) / sizeof(numbers[0]);
+for(int i = 0; i < size; i++) {
+printf("Value: %d\n", numbers[i]);
+}    
+return 0;
+}                </code></pre>
+<h3>Output</h3>
+<code>
+Value: 10
+Value: 20
+Value: 30
+Value: 40
+            </code>  
+<h3>Code Explanation</h3>
+                    <ul>
+                        <li>Defines an array numbers[]</li>
+                        <li>Calculates the array size using sizeof(numbers) / sizeof(numbers[o])</li> 
+                        <li>Iterates through elements, printing each value dynamically</li> 
+                    </ul>         
+            </div>
+            </div>
+        </div>
+
+        <div id="week3" class="week-content">
+    <p style="text-align: left; font-weight: bold; font-size: 18px; margin-bottom: 10px; color: #00408f;">
+        Content for Week 3
+    </p>
+    <div class="nested-tab-nav">
+        <button class="tab-button" onclick="showDay('monday-content-week3', this, 'week3')">Monday</button>
+        <button class="tab-button" onclick="showDay('tuesday-content-week3', this, 'week3')">Tuesday</button>
+        <button class="tab-button" onclick="showDay('wednesday-content-week3', this, 'week3')">Wednesday</button>
+        <button class="tab-button" onclick="showDay('thursday-content-week3', this, 'week3')">Thursday</button>
+        <button class="tab-button" onclick="showDay('friday-content-week3', this, 'week3')">Friday</button>
+    </div>
+
+    <div id="monday-content-week3" class="day-content day-section">
+        <h2>Monday Maverick</h2>
+        <div class="content-block">
+            <h3>What is a function?</h3>
+            <p>A function is a block of code that performs a specific task. It improves modularity and reusability.</p>
+        </div>
+
+        <div class="content-block">
+            <h3>Syntax</h3>
+            <pre><code>
+return_type function_name(parameters) {
+    // code
+}
+            </code></pre>
+        </div>
+
+        <div class="content-block">
+            <h3>Example</h3>
+            <pre><code>
+#include &lt;stdio.h&gt;
+
+// Function declaration
+int add(int a, int b);
+
+int main() {
+    int sum = add(5, 10);  // Function call
+    printf("Sum is: %d", sum);
+    return 0;
+}
+
+// Function definition
+int add(int a, int b) {
+    return a + b;
+}
+            </code></pre>
+        </div>
+        <div class="content-block">
+            <h3>Output</h3>
+            <code>
+Sum is: 15
+            </code>
+        </div>
+    </div>
+
+    <div id="tuesday-content-week3" class="day-content day-section">
+        <h2>Techie Tuesday</h2>
+        <div class="content-block">
+            <h3>Arrays in C</h3>
+            <p>An array in C is a collection of elements, all of the same type, stored in contiguous memory locations.</p>
+
+            <div class="content-block">
+                <h3>Syntax</h3>
+                <pre><code>
+data_type array_name[size];
+// Example: int myArray[10];
+                </code></pre>
+                <p>Type: The data type of the array elements (e.g., int, float).<br>Size: The number of elements the array can store.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>Example</h3>
+                <pre><code>
+#include &lt;stdio.h&gt;
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};  // Declaration and initialization
+    printf("Element at index 2: %d\n", arr[2]);
+    return 0;
+}
+                </code></pre>
+            </div>
+            <div class="content-block">
+                <h3>Output</h3>
+                <code>
+Element at index 2: 3
+                </code>
+            </div>
+
+<div class="content-block">
+                <h3>Control Structures for Arrays in C </h3>
+                <p>Control structures like loops are used to traverse and manipulate arrays in C.</p>
+                <h3>Example with for loop</h3>
+                <pre><code>
+#include &lt;stdio.h&gt;
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};    
+    // Loop through array and print each element
+    for (int i = 0; i < 5; i++) {
+        printf("Element at index %d: %d\n", i, arr[i]);
+    }
+    return 0;
+}
+
+                </code></pre>
+<p>This code prints all the elements of the array arr.</p>
+            </div>
+
+ <div class="content-block">
+                <h3>Output</h3>
+                <code>
+Element at index 0: 1
+Element at index 1: 2
+Element at index 2: 3
+Element at index 3: 4
+Element at index 4: 5
+                </code>
+            </div>
+        </div>
+    </div>
+
+    <div id="wednesday-content-week3" class="day-content day-section">
+        <h2>Syntax Snapshots Wednesday</h2>
+        <div class="content-block">
+            <h3>Let see about pointers in C program</h3>
+            <p>A pointer is a variable that stores the address of another variable. Pointers are powerful tools that enable efficient memory access, dynamic memory management, and are essential in data structures like linked lists and trees.</p>
+        </div>
+
+        <div class="content-block">
+            <h3>Example program</h3>
+            <pre><code>
+#include &lt;stdio.h&gt;
+
+int main() {
+    int a = 10;          // Declare an integer variable
+    int *ptr;            // Declare a pointer to int
+
+    ptr = &a;            // Store address of variable 'a' in pointer 'ptr'
+
+    // Print the value and address
+    printf("Value of a: %d\n", a);
+    printf("Address of a: %p\n", &a);
+    printf("Value stored in ptr (address of a): %p\n", ptr);
+    printf("Value pointed to by ptr (value of a): %d\n", *ptr);
+
+    return 0;
+}
+            </code></pre>
+        </div>
+        <div class="content-block">
+            <h3>Output</h3>
+            <code>
+Value of a: 10
+Address of a: 0x7ffee0b01234  (This will be a hexadecimal address)
+Value stored in ptr (address of a): 0x7ffee0b01234 (This will be the same as Address of a)
+Value pointed to by ptr (value of a): 10
+            </code>
+        </div>
+    </div>
+
+    <div id="thursday-content-week3" class="day-content day-section">
+        <h2>Te Ta Thursday</h2>
+        <div class="content-block">
+            <h3>Passing Arrays to Functions</h3>
+            <p>One lesser-known aspect is how arrays are passed to functions in C. When an array is passed to a function, it decays into a pointer to the first element. This means the function receives a pointer, not the entire array.</p>
+        </div>
+
+        <div class="content-block">
+            <h3>Example program</h3>
+            <pre><code>
+#include &lt;stdio.h&gt;
+
+// Function to print array elements
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int numbers[5] = {1, 2, 3, 4, 5};
+    printArray(numbers, 5);
+    return 0;
+}
+
+            </code></pre>
+<p>In this example, arr in the printArray function is essentially a pointer to the first element of the numbers array. The size parameter is necessary because the function doesn't know the size of the array otherwise.</p>
+        </div>
+        <div class="content-block">
+            <h3>Output</h3>
+            <code>
+1 2 3 4 5 
+            </code>
+        </div>
+    </div>
+
+    <div id="friday-content-week3" class="day-content day-section">
+        <h2>Function Friday</h2>
+        <div class="content-block">
+            <h3>Function Pointers in C</h3>
+            <p>A function pointer stores the address of a function and allows dynamic invocation.</p>
+            <h4>Syntax</h4>
+            <pre><code>
+// Function pointer declaration
+void (*funcPtr)();
+
+// Assign function address to pointer
+funcPtr = &greet;
+
+// Call function using pointer
+funcPtr();
+
+            </code></pre>
+            <h3>Example</h3>
+            <pre><code>
+#include &lt;stdio.h&gt;
+// Function to display a message
+void greet() {
+    printf("Hello, Function Pointers!\n");
+}
+int main() {
+    void (*funcPtr)(); // Declare function pointer
+    funcPtr = &greet;  // Assign function address
+    funcPtr();         // Call function using pointer
+    return 0;
+}
+
+            </code></pre>
+            <h3>Output</h3>
+            <code>
+Hello, Function Pointers!
+            </code>
+            <h3>Why use function pointers?</h3>
+            <ul>
+                <li>Enables callback functions in programs like sorting algorithms.</li>
+                <li>Used in event-driven programming and function abstraction.</li>
+            </ul>
+<h3>Deeper Dive</h3>
+            <ul>
+                <li>Function pointers allow runtime function selection, making programs more flexible.</li>
+                <li>They are essential for implementing state machines, commonly used in embedded systems.</li>
+            </ul>
+<h3>Variable-Length Arrays (VLA)</h3>
+            <p>Unlike fixed-size arrays, VLAs allow defining arrays with dynamic sizes at runtime (supported in modern C versions).</p>
+
+<h3>Syntax</h3>
+<pre><code>
+int n;
+scanf("%d", &n);  // Get array size from user
+int arr[n];       // Declare a variable-length array
+            </code></pre>
+
+            <pre><code>
+int main() {
+    int n;
+    printf("Enter array size: ");
+    scanf("%d", &n);
+    int arr[n];  // Variable-length array
+    for (int i = 0; i < n; i++) {
+        arr[i] = i + 1;
+    }
+    printf("Array contents:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
+
+            </code></pre>
+            <h3>Output</h3>
+            <code>
+Enter array size: 5
+Array contents:
+1 2 3 4 5
+
+--
+
+Enter array size: 3
+Array contents:
+1 2 3
+
+--
+
+Enter array size: 10
+Array contents:
+1 2 3 4 5 6 7 8 9 10
+            </code>
+            <h3>Why use VLAs?</h3>
+            <ul>
+                <li>Allows dynamic array sizing at runtime.</li>
+                <li>Useful when the required array size is unknown before execution.</li>
+            </ul>
+<h3>Deeper Dive</h3>
+            <ul>
+                <li>Simpler Syntax Compared to malloc.</li>
+                <li>Eliminates the need for manual memory allocation & deallocation.</li>
+            </ul>
+<h3>When Should You Use VLAs?</h3>
+            <ul>
+                <li>When you need simple runtime array sizing for small arrays.</li>
+                <li>When writing temporary arrays that won’t persist beyond function scope</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div id="week4" class="week-content">
+    <p style="text-align: left; font-weight: bold; font-size: 18px; margin-bottom: 10px; color: #00408f;">
+        Content for Week 4
+    </p>
+    <div class="nested-tab-nav">
+        <button class="tab-button" onclick="showDay('monday-content-week4', this, 'week4')">Monday</button>
+        <button class="tab-button" onclick="showDay('tuesday-content-week4', this, 'week4')">Tuesday</button>
+        <button class="tab-button" onclick="showDay('wednesday-content-week4', this, 'week4')">Wednesday</button>
+        <button class="tab-button" onclick="showDay('thursday-content-week4', this, 'week4')">Thursday</button>
+        <button class="tab-button" onclick="showDay('friday-content-week4', this, 'week4')">Friday</button>
+    </div>
+
+    <div id="monday-content-week4" class="day-content day-section">
+        <h2>Monday Maverick</h2>
+        <div class="content-block">
+            <h3>What is a Pointer?</h3>
+            <p>A pointer is a variable that stores the memory address of another variable.</p>
+        </div>
+
+        <div class="content-block">
+            <h3>Syntax</h3>
+            <pre><code>
+data_type *pointer_name;
+            </code></pre>
+        </div>
+
+        <div class="content-block">
+            <h3>Examples</h3>
+            <pre><code>
+int *ptr;        // pointer to an int
+float *fptr;     // pointer to a float
+char *cptr;      // pointer to a char
+double *dptr;    // pointer to a double          
+</code></pre>
+<p><strong>Note:</strong> Even though * is used in the declaration, the pointer itself just stores an address.</p>
+        </div>
+        <div class="content-block">
+            <h3>Example</h3>
+            <pre><code>
+int a = 10;
+int *ptr = &a;   // ptr now holds the address of a
+        </code></pre>
+        </div>
+    </div>
+
+    <div id="tuesday-content-week4" class="day-content day-section">
+        <h2>Techie Tuesday</h2>
+        <p style="text-align: center; font-style: italic; color: #555;">Content coming soon!</p>
+    </div>
+
+    <div id="wednesday-content-week4" class="day-content day-section">
+        <h2>Syntax Snapshots Wednesday</h2>
+        <p style="text-align: center; font-style: italic; color: #555;">Content coming soon!</p>
+    </div>
+
+    <div id="thursday-content-week4" class="day-content day-section">
+        <h2>Te Ta Thursday</h2>
+        <p style="text-align: center; font-style: italic; color: #555;">Content coming soon!</p>
+    </div>
+
+    <div id="friday-content-week4" class="day-content day-section">
+        <h2>Function Friday</h2>
+        <p style="text-align: center; font-style: italic; color: #555;">Content coming soon!</p>
+    </div>
+</div>
+
+        <div id="week5" class="week-content">
+            <p style="text-align: center; font-weight: bold; font-size: 1.5em; color: #00408f; padding: 50px;">
+                Week 5 Content - COMING SOON!
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Created by The Coders Club</p>
+        <a href="https://www.instagram.com/the_mce.coders_club?igsh=Z245eDZmdWhkcmRn" target="_blank">
+            <img src="IG.png" alt="Instagram" class="social-logo">
+        </a>
+        <a href="https://www.linkedin.com/in/thecodersclub-mce/" target="_blank">
+            <img src="LINKEDLN.png" alt="LinkedIn" class="social-logo">
+        </a>
+        <a href="https://www.youtube.com/@TheCodersClub_MCE" target="_blank">
+            <img src="YT.png" alt="YouTube" class="social-logo">
+        </a>
+        <a href="https://whatsapp.com/channel/0029Vb6HMGKKAwEe8OdjAF0X" target="_blank">
+            <img src="WP.svg" alt="WhatsApp" class="social-logo">
+        </a>
+    </footer>
+
+    <script>// --- CONTROL KEYWORD HERE ---
+// Define a variable to store the ID of the disabled week
+// Set this to the week you want to disable (e.g., 'week4', 'week2', or null if no week is disabled)
+let disabledWeekId = ''; // Example: Week 4 is disabled
+// Define an array of disabled days for a given week (e.g., ['tuesday', 'thursday'] for week1)
+const disabledDays = {
+    'week1': ['monday', 'tuesday','wednesday', 'thursday'], // Example: Tuesday and Thursday are disabled for Week 1
+    'week2': ['monday', 'tuesday','wednesday', 'thursday'],
+    'week3': ['monday', 'tuesday','wednesday', 'thursday'],
+};
+// --- END CONTROL KEYWORD ---
+
+// Object to store original text content for jumbling/unjumbling
+const originalTextStore = {};
+
+// Function to shuffle characters in a string
+function shuffleString(str) {
+    let a = str.split("");
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a.join("");
+}
+
+// Function to jumble the text content of an element
+function jumbleText(element) {
+    // Check if element has any text content to jumble and is not just whitespace
+    if (element && element.textContent && element.textContent.trim().length > 0) {
+        // Use a unique key for storage, preferring element ID or generating one
+        const elementKey = element.id || 'jumble-' + Math.random().toString(36).substring(2, 9);
+        if (!element.id) { // Assign ID if it didn't exist for consistent lookup
+            element.id = elementKey;
+        }
+
+        // Store original text if not already stored
+        if (!originalTextStore[elementKey]) {
+            originalTextStore[elementKey] = element.textContent;
+        }
+        element.textContent = shuffleString(element.textContent);
+    }
+}
+
+// Function to unjumble the text content of an element
+function unjumbleText(element) {
+    if (element && element.id && originalTextStore[element.id]) {
+        element.textContent = originalTextStore[element.id];
+        // Optionally delete from store if you don't need it after unjumbling
+        // delete originalTextStore[element.id];
+    }
+}
+
+// Function to show content for a specific week
+function showWeek(weekId, clickedButton) {
+    // Hide all week content sections
+    const weekContents = document.querySelectorAll('.week-content');
+    weekContents.forEach(content => {
+        content.classList.remove('active-content');
+        content.classList.remove('content-disabled-overlay'); // Ensure this is removed when not disabled
+    });
+
+    // Deactivate all main tab buttons
+    const mainTabButtons = document.querySelectorAll('.main-tab-nav .tab-button');
+    mainTabButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // Show the selected week's content
+    const selectedWeekContent = document.getElementById(weekId);
+    selectedWeekContent.classList.add('active-content');
+
+    // Activate the clicked week button
+    if (clickedButton) {
+        clickedButton.classList.add('active');
+    }
+
+    // Check if the current week is disabled
+    if (weekId === disabledWeekId) {
+        selectedWeekContent.classList.add('content-disabled-overlay');
+        // Jumble text for questions and options within the entire disabled week
+        selectedWeekContent.querySelectorAll('h3, p, h4, span, .radio-group label, .checkbox-group label').forEach(element => { // Adjust selectors as needed
+            jumbleText(element);
+        });
+
+        // Ensure day buttons for a disabled week do not have 'active' class
+        selectedWeekContent.querySelectorAll('.nested-tab-nav .tab-button').forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Hide all day content within the disabled week, and also apply blur
+        selectedWeekContent.querySelectorAll('.day-content').forEach(content => {
+            content.classList.remove('active-content'); // Hide any active day content
+            content.classList.add('content-disabled-overlay'); // Apply blur to all day contents
+            content.querySelectorAll('h4, p, span').forEach(element => { // Jumble text within day content
+                jumbleText(element);
+            });
+        });
+
+    } else { // Week is enabled
+        selectedWeekContent.classList.remove('content-disabled-overlay');
+        // Unjumble text for questions and options within the entire enabled week
+        selectedWeekContent.querySelectorAll('h3, p, h4, span, .radio-group label, .checkbox-group label').forEach(element => { // Adjust selectors as needed
+            unjumbleText(element);
+        });
+
+        // Re-add onclick handler for nested day buttons for enabled week
+        selectedWeekContent.querySelectorAll('.nested-tab-nav .tab-button').forEach(button => {
+            const dayIdMatch = button.textContent.trim().toLowerCase(); // Assuming button text is the day name
+            const originalDayId = dayIdMatch + '-content-' + weekId; // Reconstruct the ID
+            button.setAttribute('onclick', `showDay('${originalDayId}', this, '${weekId}')`);
+            // No 'disabled' class or onclick removal for buttons based on individual day status here.
+            // showDay will handle the content blur.
+        });
+
+        // Special handling to show Monday content by default for the *currently active* week
+        const defaultDayId = 'monday-content-' + weekId;
+        const defaultDayButton = selectedWeekContent.querySelector(`.nested-tab-nav .tab-button[onclick*="${defaultDayId}"]`);
+        if (defaultDayButton) {
+            showDay(defaultDayId, defaultDayButton, weekId);
+        } else {
+            const dayContents = selectedWeekContent.querySelectorAll('.day-content');
+            dayContents.forEach(content => {
+                content.classList.remove('active-content');
+                content.classList.remove('content-disabled-overlay'); // Ensure removed if no default day
+                content.querySelectorAll('h4, p, span').forEach(element => {
+                    unjumbleText(element); // Unjumble if no default day content is shown
+                });
+            });
+            const dayButtons = selectedWeekContent.querySelectorAll('.nested-tab-nav .tab-button');
+            dayButtons.forEach(button => button.classList.remove('active'));
+        }
+    }
+}
+
+// Function to show content for a specific day within a week
+function showDay(dayIdWithWeek, clickedButton, weekId) {
+    const weekContentDiv = document.getElementById(weekId);
+
+    // Hide and un-blur/unjumble all day content sections within the current week first
+    const dayContents = weekContentDiv.querySelectorAll('.day-content');
+    dayContents.forEach(content => {
+        content.classList.remove('active-content');
+        content.classList.remove('content-disabled-overlay'); // Always remove before potentially adding it back
+        content.querySelectorAll('h4, p, span').forEach(element => { // Adjust selectors as needed
+            unjumbleText(element); // Always unjumble previous content
+        });
+    });
+
+    // Deactivate all nested day tab buttons within the current week
+    const dayTabButtons = weekContentDiv.querySelectorAll('.nested-tab-nav .tab-button');
+    dayTabButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // Extract just the day name from dayIdWithWeek (e.g., 'monday' from 'monday-content-week1')
+    const dayName = dayIdWithWeek.split('-')[0];
+
+    const targetDayContent = document.getElementById(dayIdWithWeek);
+
+    // Show the selected day's content
+    targetDayContent.classList.add('active-content');
+
+    // Activate the clicked day button
+    if (clickedButton) {
+        clickedButton.classList.add('active');
+    }
+
+    // Check if the specific day is disabled for this week OR if the entire week is disabled
+    if ((disabledDays[weekId] && disabledDays[weekId].includes(dayName)) || weekId === disabledWeekId) {
+        // Apply blur to the day's content if it's disabled or its parent week is disabled
+        targetDayContent.classList.add('content-disabled-overlay');
+        // Jumble the text contents within this specific disabled day
+        targetDayContent.querySelectorAll('h4, p, span').forEach(element => { // Adjust selectors as needed
+            jumbleText(element);
+        });
+    } else {
+        // Unjumble text if the day is enabled
+        targetDayContent.querySelectorAll('h4, p, span').forEach(element => { // Adjust selectors as needed
+            unjumbleText(element);
+        });
+    }
+}
+
+// Function to apply initial setup (no disabled button styles)
+function applyInitialWeekSetup() {
+    // No "disabled" class or onclick removal needed for main tab buttons now.
+    // They will always be clickable.
+}
+
+// Initialize by showing Week 1 and its Monday content on page load
+document.addEventListener('DOMContentLoaded', () => {
+    applyInitialWeekSetup(); // Apply initial setup
+    showWeek('week1', document.querySelector('.main-tab-nav .tab-button[onclick*="week1"]'));
+});
+    </script>
+
+</body>
+</html>
