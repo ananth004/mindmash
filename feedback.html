@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback - The Coders Club</title>
+    <title>Feedback - C Programming Series</title>
     <link rel="icon" href="TCC.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -306,7 +306,8 @@
     </div>
 
     <div class="button-container" style="text-align: right; padding: 15px;">
-        <button class="nav-button" onclick="window.location.href='index.html';">Back to Quiz</button>
+        <button class="nav-button" onclick="window.location.href='index.html';">Back to Homepage</button>
+        <button class="nav-button" onclick="window.location.href='quiz.html';">Quiz</button>
         <button class="nav-button" onclick="window.location.href='leaderboard.html';">Leaderboard</button>
     </div>
 
@@ -315,7 +316,7 @@
 
         <div class="quiz-form-wrapper">
             <h2>Feedback Form</h2>
-            <form id="feedbackForm" method="POST" action="https://script.google.com/macros/s/AKfycbzQQ265GgGANkFzQLAY3WQsu_AkUUs936mUQJxoo_8EM1qeDx3Dm1L2EP3AB2natWYzEw/exec">
+            <form id="feedbackForm" method="POST" action="https://script.google.com/macros/s/AKfycbwYjG5TPLqg9X-91Z3g6-FgRLDhJOAG028wiqIO8_-gXcwgS6TM0oZlJWcazUTqQEZD/exec">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="Name" required placeholder="Enter your full name">
@@ -412,7 +413,7 @@
     <script>
         // --- CONTROL KEYWORD HERE ---
         // Change this variable to "disable" or "enable"
-        const formControlStatus = "enable"; // Changed variable name to be specific for feedback form
+        const formControlStatus = "disable"; // Changed variable name to be specific for feedback form
         // --- END CONTROL KEYWORD ---
 
         // Object to store original text content for jumbling/unjumbling
@@ -553,7 +554,7 @@
             }
 
             // Replace 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE' with your deployed Apps Script URL for FEEDBACK
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzQQ265GgGANkFzQLAY3WQsu_AkUUs936mUQJxoo_8EM1qeDx3Dm1L2EP3AB2natWYzEw/exec';
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbwYjG5TPLqg9X-91Z3g6-FgRLDhJOAG028wiqIO8_-gXcwgS6TM0oZlJWcazUTqQEZD/exec';
             fetch(scriptUrl, {
                 method: 'POST',
                 mode: 'no-cors', // Important for sending data to Apps Script
