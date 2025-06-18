@@ -123,7 +123,7 @@ You can view the data submitted through the quiz and feedback forms directly in 
 
 Experience the **C Programming Series** application live here:
 
-  * **Original Project Website:** [https://thecodersclub-mce.github.io/mindmash/](https://thecodersclub-mce.github.io/c-programming-series)
+  * **Original Project Website:** [https://thecodersclub-mce.github.io/c-programming-series/](https://thecodersclub-mce.github.io/c-programming-series)
 
 -----
 
