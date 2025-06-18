@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +8,13 @@
     <link rel="stylesheet" href="styles.css"> 
     <style>
        /* General Container for all content */
-.content-container-wrapper {
+    .content-container-wrapper {
     width: 90%;
     max-width: 900px; /* Increased max-width for better content display */
-    margin: 20px auto; /* General top/bottom margin */
+    margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 70px;
+    margin-left: auto; /* General top/bottom margin */
     background: white;
     border-radius: 12px;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
@@ -126,7 +128,7 @@
 .content-block {
     margin-bottom: 20px;
     /* Ensure no extra padding/margin on the content block itself
-        that might throw off the alignment for its children */
+        that might throw off the alignment for its children */
     padding-left: 0;
     padding-right: 0;
 }
@@ -202,7 +204,7 @@
     position: relative; /* Needed for positioning the ::before pseudo-element */
     
     /* Padding to create space for the number (e.g., "10.") and gap.
-        Adjust this based on the max number of items you expect (e.g., if you go to 100, you need more space). */
+        Adjust this based on the max number of items you expect (e.g., if you go to 100, you need more space). */
     padding-left: 30px; /* Space for the number and text content */
 }
 
@@ -283,7 +285,7 @@ pre code {
     .content-container-wrapper {
         width: 95%; /* Slightly more width on small screens */
         padding: 10px;
-        margin: 10px auto 15px auto;
+        margin: 10px auto 70px auto;
     }
 
     /* For both main and nested tab navigation */
