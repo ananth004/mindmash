@@ -146,6 +146,7 @@ The leaderboard data in `leaderboard.html` is currently **static HTML**. This me
 You can view the data submitted through the quiz and feedback forms directly in these Google Sheets (these are publicly viewable links):
 
   * **C Programming Series - Quiz Data**: [https://docs.google.com/spreadsheets/d/1O4NlEm2V8NRINTL03K8Ff\_aZrC7zbEis6Lfcqkx6H1s/edit?gid=0\#gid=0](https://docs.google.com/spreadsheets/d/1O4NlEm2V8NRINTL03K8Ff_aZrC7zbEis6Lfcqkx6H1s/edit?gid=0#gid=0)
+  * **C Programming Series - Final Quiz Data**: [https://docs.google.com/spreadsheets/d/1lgn23TAQXEA8adGqhW8flpyauo57SLAs7MyAM1zBsGA/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1lgn23TAQXEA8adGqhW8flpyauo57SLAs7MyAM1zBsGA/edit?usp=sharing)
   * **C Programming Series - Feedback Data**: [https://docs.google.com/spreadsheets/d/1YvdX7s4c6OOS6B-QcMmkf2hZHi2HfGAIn2LuQ5\_R0iY/edit?gid=0\#gid=0](https://docs.google.com/spreadsheets/d/1YvdX7s4c6OOS6B-QcMmkf2hZHi2HfGAIn2LuQ5_R0iY/edit?gid=0#gid=0)
 
 -----
